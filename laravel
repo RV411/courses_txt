@@ -1,0 +1,7 @@
+
+composer create-project laravel/laravel example-app
+
+cd example-app
+ 
+#### Correr el Servido
+php artisan serve

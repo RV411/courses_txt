@@ -1,0 +1,25 @@
+comands
+https://www.postgresqltutorial.com/postgresql-administration/postgresql-show-databases/
+
+
+sudo su - postgres
+psql
+
+
+
+
+create database dbname
+
+
+*************list databases
+\l
+
+
+
+
+sudo systemctl restart postgresql.service
+sudo systemctl restart postgresql
+sudo systemctl stop postgresql
+
+config
+https://ubuntu.com/server/docs/databases-postgresql

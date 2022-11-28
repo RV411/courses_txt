@@ -1,0 +1,28 @@
+puerto 27017
+ 
+sudo systemctl start mongod
+sudo systemctl stop mongod
+sudo systemctl restart mongod
+
+//cuando se tenga error en el inicio
+sudo systemctl daemon-reload
+
+sudo systemctl status mongod
+
+//verificar si esta corriendo
+sudo systemctl enable mongod
+
+
+mongod
+mongosh
+
+sudo service mongod stop
+
+
+//remove package previously installed
+sudo apt-get purge mongodb-org*
+
+
+
+
+

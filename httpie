@@ -1,0 +1,24 @@
+
+
+#REQUEST
+http :8080/employee/all => http GET https//localhost:8080/employee/all
+
+
+####se necesita crear el data.json para enviarle la informacion
+#CREATE
+http POST :8080/employee/add < data.json
+
+#UPDATE
+http PUT :8080/employee/add < data.json
+
+#DELETE
+
+
+
+
+
+
+http :8080/server/list
+http :8080/server/get/2
+
+

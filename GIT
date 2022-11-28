@@ -1,0 +1,37 @@
+DIAGRAMAS
+https://mermaid-js.github.io/mermaid/#/stateDiagram
+https://github.com/mermaid-js/mermaid
+
+Que una branch (o rama) es una línea de commits separada, y que se puede usar para desarrollar funcionalidades independientes;
+Que con branches separadas, podemos evitar que el código de una funcionalidad interfiera con otra;
+Cómo traer el trabajo realizado en una branch a otra branch, como la master, usando el comando git merge;
+Que git merge genera un nuevo commit, informando que hubo una mezcla entre dos branches;
+Cómo traer commits de una branch a otra con git rebase
+Que git rebase no genera un commit de merge, lo que simplifica nuestro log;
+
+
+
+Que, para deshacer un cambio antes de agregarlo para commit(con git add), podemos usar el comando git restore <archivos>;
+Que, para deshacer un cambio después de agregarlo paracommit, primero debemos ejecutar git restore --staged <archivos> y luego podemos deshacerlos con git restore <files>;
+Que, para revertir los cambios realizados en un commit, el comando git revert puede ser la solución;
+Que el comando git revert genera un nuevo commit informando que los cambios fueron deshechos;
+Que, para guardar un trabajo y reanudarlo más tarde, podemos usar git stash;
+Que, para ver qué cambios hay en el stash, podemos usar el comando git stash list;
+Que, con el comando git stash apply <número>, podemos aplicar un cambio específico al stash;
+Que el comando git stash drop <número> elimina un elemento determinado del stash;
+Que el comando git stash pop aplica y elimina el último cambio que se agregó alstash;
+Que git checkout sirve para dejar la copia del código de muestra aplicación en el estado que queremos:
+
+    git checkout <branch> deja el código en el estado de una branchcon el nombre <branch>;
+    git checkout <hash> deja el código en el estado de commit con el hash <hash>.
+
+
+    
+    Que es posible ver qué cambios se hicieron en cada archivo, con el comando git diff;
+    Que, al escribir sólo git diff, vemos los cambios en nuestros archivos que no se agregaron para commit (con git add);
+    Que es posible comparar cambios entre dos ramas con git diff <branch1> .. <branch2>
+    Que es posible comparar los cambios realizados entre un commit y otro, usando el comando git diff <commit1> .. <commit2>;
+    Que Git nos permite guardar “marcos” de nuestra aplicación, por ejemplo, generando versiones, a través de git tag;
+    Que el comando git tag -a se usa para generar una nueva tag;
+    Las Releases de GitHub, que son generadas para cada tag de Git que creamos en nuestro repositorio.
+

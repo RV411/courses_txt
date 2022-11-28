@@ -1,0 +1,37 @@
+1) Cree una nueva carpeta en su computadora;
+
+2) En la terminal (o Git Bash, en Windows) navega hasta la carpeta recién creada (use el comando cd para navegar entre carpetas);
+
+3) Ejecuta el comando git init --bare;
+
+4) Navega hasta la carpeta donde se encuentra tu proyecto;
+
+5) Ejecuta el comando git remote add servidorlocal {ruta}. Reemplaza {ruta} con la ruta completa de la carpeta recién creada;
+
+6) Crea una nueva carpeta en tu computadora, para representar el trabajo de otra persona;
+
+7) En la terminal (o Git Bash, en Windows) navega hasta la carpeta recién creada;
+
+8) Ejecuta el comando git clone {ruta} proyecto. Reemplaza {ruta} con la ruta completa a la carpeta que creamos en el primer paso;
+
+9) Ten en cuenta que el repositorio clonado está vacío;
+
+10) Accede a la carpeta del Proyecto y ejecuta el comando git remote rename origin servidorlocal para cambiar el nombre del repositorio local de la otra persona de "origin" a "servidorlocal";
+
+11) Navega a la carpeta donde se encuentra tu proyecto original;
+
+12) Ejecute el comando git push servidorlocal master para enviar tus cambios a tu servidor;
+
+13) Navega hasta la carpeta creada en el paso 6;
+
+14) Ejecuta el comando git pull servidorlocal master para descargar los cambios;
+
+15) Abre tu navegador y vé a http://github.com/;
+
+16) Crea una cuenta;
+
+17) Crea un nuevo repositorio haciendo clic en el símbolo más (+) en la esquina superior derecha;
+
+18) En la terminal (o Git Bash, en Windows) agrega el repositorio remoto recién creado a tu proyecto inicial (los comandos los muestra el propio GitHub);
+
+19) Ejecuta git push origin master para enviar tus cambios al repositorio en GitHub. 
