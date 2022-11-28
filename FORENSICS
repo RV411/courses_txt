@@ -1,0 +1,635 @@
+##################################################################
+##################################################################
+		Etapas del cómputo forense
+##################################################################
+##################################################################
+
+• Primera etapa “Identificación”: reconocer nuestras fuentes de evidencia.
+Resultados de la primera etapa
+Como resultado obtendrás una cadena de custodia y un inventario de fuentes.
+
+• Segunda etapa “Preservación”: conservar, guardar la evidencia de manera segura
+Resultados de la segunda etapa
+Como resultado obtendrás imágenes forenses y reportes de adquisición y verificación.
+
+• Tercera etapa “Análisis”: procesamiento y análisis de fuentes de información relacionada un evento.
+
+Puntos clave a tener en cuenta tercera etapa
+— Sistemas de Archivos: ¿Qué son?, ¿cuáles usamos comúnmente?, ¿cómo funcionan?
+— Creación de imágenes parciales: Clasificación de datos para análisis.
+— Exportado de archivos: Separación de información.
+— Análisis preliminar de Sistemas Operativos: Windows y Unix
+– Los resultados del Análisis Preliminar serán: información filtrada para análisis y reporte preliminar de análisis.
+– Puntos claves a tener en cuenta para sistemas operativos:
+— Análisis de usuarios de sistema: ¿Qué usuarios han estado activos en el sistema?
+— Análisis de logs y procesos ejecutados: Reconstrucción de la actividad del Sistema Operativo.
+— Recuperación de archivos borrados: Reconstrucción y procesos de data carving.
+— Artefactos específicos de Sistema: Diferencias entre Windows y Unix.
+
+Resultados de la tercera etapa
+Como resultado obtendrás, resultados generales de la investigación y posibles fuentes adicionales de consulta.
+
+
+• Cuarta etapa “Presentación”: presentaremos resultados con un lenguaje adecuado y legible para los demás.
+
+– Puntos claves a tener en cuenta:
+— Organización de la información: ¿Qué debemos incluir y qué no?, ¿cómo presentar los resultados y qué decir?
+— Creación de un informe técnico: ¿Qué detalles debemos incluir?
+— Creación de un informe ejecutivo: ¿Qué lenguaje debemos utilizar?, ¿cómo resumir nuestros hallazgos?
+— Presentación ante autoridades: Consejos y recomendaciones
+– Los resultados de la Presentación serán: informe técnico e informe ejecutivo.
+
+
+
+##################################################################
+		Herramientas
+##################################################################
+
+Software:
+
+    Linux Live USB: (Paladin Forensics / Kali / Otra)
+    EnCase Imager
+    FTK Imager Lite
+    Inventario de Evidencia:
+    	Número identificador
+    	Custodio
+    	Tipo de dispositivo
+    	Marca
+    	Modelo
+    	Número de serie
+    	Número de inventario
+    	Capacidad de almacenamiento
+    	Notas
+
+
+https://drive.google.com/uc?id=1eojvJ0OBb8DWYLRAGejDkSRYT1nnjiSj&export=download
+
+
+
+
+##################################################################
+		Numero de serie
+##################################################################
+
+
+WINDOWS
+wmic bios get serialnumber
+Get-WmiObject win32_bios | Format-List SerialNumber
+gwmi win32_bios | fl SerialNumber
+
+MAC
+system_profiler SPHardwareDataType | awk '/Serial/ {print $4}'
+ioreg -l | awk '/IOPlatformSerialNumber/ { print $4;}'
+ioreg -c IOPlatformExpertDevice -d 2 | awk -F\" '/IOPlatformSerialNumber/{print $(NF-1)}'
+
+LINUX
+sudo dmidecode | grep "^System Information" -A8
+
+
+##################################################################
+		Bloquear contra escritura
+##################################################################
+
+Write Bloquer
+
+https://forensicswiki.xyz/wiki/index.php?title=Write_Blockers
+
+
+##################################################################
+		FTK Imager
+##################################################################
+
+FTK Imager: es una herramienta de análisis forense disponible en la Web de AccessData, además que permite varios formatos para imágenes.
+
+• Disco lógico: es la sección de un disco que tenga un equivalente lógico. No es una copia exacta.
+• Disco físico: cualquier disco que esté conectado físicamente a la máquina.
+• Archivo de imagen: es una imagen forense que ya este creada.
+
+https://accessdata.com/product-download/ftk-imager-version-4-2-0
+
+https://security.opentext.com/encase-forensic-imager
+
+##################################################################
+		Imagenes de los datos
+##################################################################
+
+********************
+RAW:= Imagen en crudo (Copia bits a bits, Menos usado)
+Smart:= Formato ya no utilizado
+E01:= Herramienta comercial para imagen forense (Mayor soporte,recomendado)
+AFF:= Soportado solamente por acces data
+
+******************
+
+ENCASE de la empresa Guidance software ahora comprada por Opentext es una herramienta gratuita que podemos bajar directamente desde aqui después de llenar un formulario básico obligatorio
+
+lo primero es crear el caso llenando un formulario
+después se adiciona la evidencia
+
+Local Device: Cualquier dispositivo de almacenamiento físico
+
+Network preview : Disco mapeado atravez de la red
+
+Evidence File : Imágenes forenses
+
+Raw image: Imagen raw
+
+Crossover Preview: Carga Varias imágenes simultáneamente
+
+una vez determinada la fuente se debe escoger el formato de salida de la imagen, dentro de las cuales tenemos
+
+Acquire: Crea imagen
+Create Logical Evidence File: Crea imagen logica
+Acquire Data Remotely: Adquisición por mapeo de disco en una red
+
+El proceso se puede cancelar con un doble click tener cuidado
+
+No genera reporte automático
+
+tiene tamaño fijo para las imagenes
+
+Nota: todas las imágenes creadas de un caso deben estar en una misma carpeta
+
+cualquier corrección, aporte o aclaración sera bien venida Gracias por leer.
+
+
+
+##################################################################
+		Adquisicion de Imagenes
+##################################################################
+
+Adquisición en Vivo
+Con la versión live de Ftk imager Live ejecutable en una usb
+tener un disco duro externo donde se almacenara la imagen adquirida
+
+    se ejecuta FTK imager desde la unidad
+    se escoje la opción imagen lógica (esta solo copia el contenido del sistema de archivos)
+
+    toma la partición que se desea copiar
+
+    se llenan las notas de información del item
+
+    Se escoje el destino de la imagen
+
+    la imagen física de un disco duro completo puede tardar bastante 4 o mas horas, las imágenes lógicas son mas rápidas pues copian el contenido no todo el disco
+
+    El resultado es mas o menos igual que el de una imagen física
+
+para examinar se agrega evidencia y se selecciona la imagen generada
+
+las imágenes lógicas solo muestran la información contenida en el sistema de archivos
+
+Adquision de la memoria ram de un equipo
+
+    se usa la opción Memory capture
+
+    solo hay que seleccionar en donde se va a ubicar la captura de la memoria ram
+
+
+memoria ram===pagefile.sys
+
+
+##################################################################
+		Adquisicion de Imagenes
+##################################################################
+
+****************paladin
+Con paladin al montar las usb en lectura
+
+
+****************dc3dd
+el comando dd (data dump) en Linux originalmente se usa para copiar archivos en crudo (raw data) y su sintaxis es muy sencilla
+dd if=/dev/sdb of=/ruta/destino/archivodestino
+
+if= input file
+of= output file
+
+esta opción es muy simple y no cumple todas las necesidades de una imagen forense , para ello se utiliza el comando
+dc3dd con la siguiente sintaxis
+
+dc3dd if=/dev/sdb hofs=/ruta/destino/archivodestino ofsz=300MB hash=md5 hash=sha1 verb=on log=/ruta/destino/archivolog.txt
+
+if = input file
+h = hash
+of = output file
+s = split
+ofsz= tamaño de los bloques en los que queremos dividir la imagen
+verb= barra de progreso
+
+El archivo txt del log tiene todos los datos que requerimos como los resultados de los hash fecha de creación, tamaño etc
+
+
+
+
+****************ftkimager
+ftkimager para Linux puedes descargarlo desde aqui
+
+    una vez lo descomprimas en el Linux que uses solo hay que ejecutarlo la sintaxis es sencilla pero con muchas opciones
+
+como super usuario o usuario root ejecutamos
+
+./ftkimager /dev/sdb /ruta/destino/nombreimagen --e01 --frag 300MB --compress 6 --case-number numerocaso --evidence-number numeroevidencia --description Imagen brevedescripcion --examiner nombre\investigador --notes notas\de la evidencia --verify
+
+##################################################################
+##################################################################
+		Sistemas de Archivos
+##################################################################
+##################################################################
+Conjunto de reglas y procesos para administrar la información en un medio de almacenamiento.
+.
+Tipos de archivos
+
+• Archivos o ficheros: conjunto de datos que tienen algo en común y están delimitados.
+• Carpetas o directorios: contienen archivos en estructura jerárquica.
+• Archivos especiales: accesos directos.
+.
+Propiedades de archivos
+
+• Ruta: ubicación lógica de archivos en estructura jerárquica.
+• Metadatos: atributos y propiedades de un archivo.
+• Permisos: reglas de acceso, modificación de archivos.
+
+##################################################################
+		Tipos de Archivos
+##################################################################
+
+NTFS el propietario es Microsoft y no es soportado por otros sistemas operativos
+
+FAT
+es como el indice de un libro, en donde solo se guarda donde se encuntra el documento
+
+
+
+##################################################################
+##################################################################
+		Analisis pt2
+##################################################################
+##################################################################
+
+RegRipper es la herramienta que se usa para extraer e interpretar información (llaves, valores y datos) desde el registro de Windows y presentarlos para su análisis.
+Genera dos archivos un log y el archivo reporte de SAM
+se puede obtener entre otros datos los siguientes
+
+    El nombre del usuario
+
+    SID de los usuario de sistema incluido el administrador
+
+    Nombre completo
+
+    tipo de cuenta
+
+    Ultima fecha de acceso del usuario
+
+    Ultima fecha de acceso con password equivocado
+    Ultima fecha de cambio de contraseña
+
+    Estado de la cuenta (activa)
+
+    La pista de contraseña
+
+Los usuarios básicos que necesita Windows para funcionar si ID comienza con el 500 para el administrador y 501 para el Invitado, después de estos todos los usuarios que se crean se asignan el id a partir del 1000 de manera consecutiva
+
+Nota
+Los numero Id de cada usuario no se reutilizan son únicos para cada usuario de tal forma que si se borra un usuario su ID no se asigna a uno nuevo, esto permite reconstruir lka carpeta de un usuario borrado pues se tiene el id que tenia al observar el faltante en los consecutivos del ID
+
+LastWrite es un valor común de las llaves de registro que se pueden modificar y siempre muestra cuando se modifico por ultima vez
+
+##################################################################
+		Analisis REGISTROS
+##################################################################
+
+La llave de registro SOFTWARE contiene información de las aplicaciones y software instalado en el equipo
+
+    Cada sección corresponde a un pluggin que muestra características de las aplicaciones instadas con datos como
+
+    fecha de modificación
+    Ubicación de los ejecutables
+    Versión de la aplicación
+    fecha de instalación
+
+El pluggin unistall contiene la información de las aplicaciones disponibles para des instalar en el panel de control
+
+
+
+
+##################################################################
+		Analisis LOGS
+##################################################################
+
+Esta clase es esencial para quienes están aprendiendo Elasticsearch o Splunk, es decir, quienes se están iniciando al análisis de Logs de seguridad con gestores para visualización masiva. Todo esto beneficia a quien esté perfilándose para un trabajo tipo SOC (Security Operations Center,
+
+
+Logs de Windows están en
+Windows/System32/winevt/logs
+
+Los tres archivos de log importantes son System, Aplication, Security
+
+    System: Contiene información relacionada con los servicios y sistemas propios del sistema operativo
+
+    Security: Contiene la información de eventos accesos permisos políticas del sistema operativo con un ID de seguridad en donde podemos ver el usuario del sistema que genero el evento
+
+    Aplication: Contiene la información de las aplicaciones instaladas y ejecutadas dentro del sistema operativo
+
+
+##################################################################
+	Analisis  (MRU) y Shellbags
+##################################################################
+
+Los Shellbags son llaves de registro que almacenan la configuración de visualización del usuario, es decir, cuando nosotros podemos darle tamaño a los iconos, cambiar colores, entre otras.
+
+
+ShellBagsView
+Es el interprete que podemos usar para establecer
+https://www.nirsoft.net/utils/shell_bags_view.html
+
+MRU y Shellbags
+Dentro de la carpeta de cada usuario encontramos el archivo NTUSER.DAT que necesitaremos para analizar y adicional se usara el archivo Userclas.dat que esta en /usuario/APPdata/local/Microsoft/windows/
+
+Si bien es cierto el Shell Bags solo guarda la configuración de las carpetas e iconos que el usuario visualiza a medida que navega por el escritorio, si se mira con cuidado es como ver las huellas que deja una persona que camino por la arena y es ahí donde la herramienta ShellBagsView es muy útil
+
+
+##################################################################
+		Analisis Procesos ejecutados
+##################################################################
+
+Es una estrategia que en Windows se usa para ayudar a los programas que se usan frecuentemente a cargar mas rápido.
+
+Ubicada en Windows\Prefetch
+
+Prefetching:
+- Estrategia para acelerar la carga de apps
+- Archivos con información relacionada a la aplicación
+- Se generan y actualizan cuando se ejecuta el proceso
+○ Fecha de creación: La primera vez que se ejecuto
+- Base de datos
+○ Direcciones de librerías
+○ Dirección de ejecutable
+○ Cantidad de veces que se ha ejecutado ese proceso
+
+¿Cómo obtenerla?
+- Windows
+- Prefetch
+Al exportar, se cambia la ubicación y cambia fecha de modificación
+
+¿Cómo interpretar?
+PECmd
+
+PECmd.exe
+PECmd.exe -f “C:\Users\Desktop\Data\Datos.exe-779BD542.pf” csv
+
+https://github.com/EricZimmerman/PECmd
+mas programas de Zimmer https://ericzimmerman.github.io/#!index.md
+
+Filesload: Útil para análisis de malware
+
+
+
+##################################################################
+		Analisis RECICLAJE
+##################################################################
+
+Papelera de Reciclaje:
+
+    Espacio de almacenamiento temporal.
+    Capacidad máxima de 4GB o el 10% de la partición.
+    Debe contener información para recuperar los archivos.
+    C:$Recycle.Bin (Directorio de almacenamiento)
+    
+    Dos archivos por cada elemento borrado:
+        $IXXXXXX.* (Info para restaurar/ruta original)
+        $RXXXXXX.* (Nuevo nombre que se le da por ser borrado)
+
+
+
+
+##################################################################
+##################################################################
+			LINUX
+##################################################################
+##################################################################
+
+Primer paso: El BIOS
+El BIOS (Basic Input/Basic Output) es el primer sistema que carga el procesador cuando se enciende. El BIOS se encarga de detectar el hardware disponible y proporcionar un primer acceso a los dispositivos periféricos, así como de identificar un dispositivo desde el cual iniciar el sistema (regularmente, la primera partición de un disco local). Una vez el BIOS encuentra un dispositivo disponible para iniciar, le deja el control del sistema a éste.
+
+Segundo paso: El gestor de arranque
+En los sistemas Unix existen diferentes gestores de arranque. Éste se encarga de escoger un sistema operativo a partir de una lista de dispositivos y sectores de arranque disponibles. El gestor de arranque más común en Linux probablemente sea GRUB (GRand Unified Bootloader), pero existen otros y es común encontrarlos.
+
+Tercer paso: El kernel de Linux
+El kernel es el proceso principal que ejecuta el sistema operativo Unix y del que dependen todos los demás procesos. Se encarga de administrar los controladores necesarios para usar el hardware, inicializa el sistema de archivos y prepara la memoria.
+
+Cuarto paso: proceso /sbin/init
+Este proceso se encarga de configurar el entorno de usuario. Los archivos de configuración de este proceso se encuentran en la carpeta /etc/inittab, y el primer script que se ejecuta es /etc/init.d/rcS.
+
+A nivel lógico, el proceso init es el proceso del que derivan todos los demás procesos automáticos del sistema. Éste ejecuta todos los procesos que se encuentran en la carpeta /etc/rcS.d/ y en /etc/rc.boot/. Estas carpetas son una gran fuente de referencia para revisar los procesos que se ejecutan por defecto al iniciar el sistema.
+
+El proceso de inicio de procesos descrito es el que ha sido utilizado tradicionalmente en la gran mayoría de distribuciones de Linux. Sin embargo, existen otras alternativas y otros sistemas desarrollados para cumplir el mismo propósito. Como siempre, es importante que sigas aprendiendo y te documentes en todas estas herramientas, porque cambian constantemente y debes estar preparado para entender lo que te encuentres en campo.
+
+
+##################################################################
+		USUARIOS
+##################################################################
+Configuración de usuarios:
+
+    Los usuarios se almacenan en dos archivos:
+        /etc/passwd
+        /etc/shadow
+    Usuarios con privilegios de administración
+        /etc/sudoers
+    Configuración de grupos:
+        /etc/group
+
+Sintaxis /etc/passwd:
+
+user:x:1001:1001:just a user,111,,:/home/user:/bin/bash
+
+    Nombre de usuario
+    Password
+    ID de usuario (UID)
+    ID de grupo (GID)
+    Nombre completo
+    Carpeta home
+    Shell de acceso
+
+Sintaxis /etc/shadow:
+
+user:$1$HESu9xrH$k.o3G93DGoXliQKkPmUgZ0:14699:0:99999:7:::
+
+    Nombre de usuario
+    Password cifrado
+    	$1$=MD5 (22 caracteres)
+	$2$=blowfish
+	$5$=SHA-256 (43 Caracteres)
+	$6$=SHA-512 (86 Caracteres)
+    Último cambio de password (Días desde el 01/01/1970)
+    Mínimo de días para cambiar el password
+    Máximo de días en que es válido después de alerta
+    Número de días de alerta
+    Número de días para desactivar la cuenta
+    Expiración de la cuenta
+
+
+##################################################################
+		LOG SYSTEM
+##################################################################
+
+
+La carpeta var log contiene los registros de todo lo que sucede en el sistema, en el kernel, con los usuarios, los programas y mucho más.
+
+Registro de eventos:
+- /var/log
+
+Usar MANDIANT para analizar los logs
+https://www.fireeye.com/services/freeware/highlighter-download-confirmation.html
+○ Mapa:
+	§ Te permite resaltar
+	§ Remover lineas
+○ ACPI: Modulo que administra el sistema de energía
+
+
+
+##################################################################
+		AUTOPSY
+##################################################################
+https://dfir-training.basistech.com/courses/autopsy-basics-8-hours
+
+Autopsy para realizar nuestras imágenes de una manera mucho más gráfica.
+
+
+
+##################################################################
+##################################################################
+		Reportes
+##################################################################
+##################################################################
+
+
+Etapas:
+- Nidificación:
+	○ Cadena de custodia
+	○ Inventario de evidencia
+	○ Fuentes de información
+- Preservación
+	○ Obtener imágenes forenses
+	○ Autentificar
+- Análisis
+	○ Generalidades de sistemas operativos
+	○ Detalles de cómo analizar
+- Presentación
+	○ Condensar la información encontrada para después presentar
+	http://freemind.sourceforge.net/wiki/index.php/Download
+
+Estructura de un informe
+Herramienta FreeMind
+- Mapas / Arboles
+
+
+
+
+##################################################################
+		Ejecutivo && técnico
+##################################################################
+
+Informe ejecutivo
+
+    Introducción
+        Presentación del caso
+        Evidencia
+    Resumen ejecutivo
+    Linea del tiempo
+    Marco legal
+    Detalles técnicos
+    Documentos / Anexos
+    
+    
+Informe técnico
+    Introducción
+        Presentación del caso
+        Evidencia
+    Resumen ejecutivo
+    Metodología
+    Procedimientos
+        Identificación
+        Preservación
+        Análisis
+        Presentación
+    Documentos técnicos
+    Glosario
+    Herramientas, Fuentes…
+    Conclusiones o recomendaciones
+
+    
+    (Piénsalo como si fueses un detective de esas películas/series que tanto miras 😉)
+
+
+##################################################################
+		Presentacion en autoridades
+##################################################################
+
+Recuerda que debes ser neutral, nunca ir más de un lado o de otro, o esto denotará nuestra falta de profesionalismo.
+
+**************Consejos:
+1. Conocete: Saber que rol tienes
+a. Quién eres y que autoridad tienes
+2. Conocer a la contraparte
+3. No emitir juicios
+	a. Investigador solo relata hechos
+	b. "El usuario asignado a esta persona …"
+4. Preparate
+	a. Conocer herramientas
+	b. Capacitación
+	c. Experiencia
+5. Asesorarse de un abogado
+	a. Asegurarse de ser claro y no dejar espacio a mal interpretaciones
+
+##################################################################
+		Condenas
+##################################################################
+
+Cuando uno comete un delito existen tres tipos basicos de condena:
+-la social.
+-la penal.
+-la institucional/ o empresarial.
+
+Dicho esto, dependiendo el tipo de delito y el contexto en que se de, será quien establezca a fin de cuentas cual va a ser el castigo en relación a lo sucedido.
+
+Contestando a tu pregunta; si vos robas el papel higiénico de la empresa y se percatan de ello, el gerente o jefe del sector en el que estés trabajando, será quien te de la pena institucional. Luego el delito se verá si es para llevarlo a un nivel penal. Y socialmente, a fin de cuentas…es muy gracioso ¿no tenias papel en casa?
+
+Lo explico así, para que te quede sencillo ^^
+
+##################################################################
+		LIBROS
+##################################################################
+Metodologias y de más
+Hacking Exposed Computer Forensics  Secrets and solutions
+
+Como funciona windows
+Windows Registry Forensics
+
+Harlan Carvey el mejor para forensics
+Digital Forensics with open source tools
+
+Mas actualizado
+Digital Forensics
+
+Como recuperar datos a muy bajo nivel, manejo de herramientas
+EnCE Study Guide
+
+
+
+##################################################################
+##################################################################
+		Paginas
+##################################################################
+##################################################################
+
+Windows Incident Response 
+https://windowsir.blogspot.com/p/books.html
+
+Explicar como funcionan algunas cosas
+https://forensicswiki.xyz/page/Main_Page
+
+Articulos
+https://digital-forensics.sans.org/training
+
+Metodos e interpretaciones
+https://www.forensicfocus.com/

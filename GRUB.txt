@@ -1,0 +1,69 @@
+bcdedit /set {bootmgr} path \EFI\Ubuntu\grubx64.efi
+### RETURN ###		bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+
+sudo update-grub
+
+########################################################################
+Deshabilitar OS Prober
+########################################################################
+cat << EOF | sudo tee /etc/grub.d/25_windows
+#!/bin/sh
+exec tail -n +3 \$0
+menuentry 'Windows 10' {
+  savedefault
+  search --no-floppy --set=root --file /EFI/Microsoft/Boot/bootmgfw.efi
+  chainloader (\${root})/EFI/Microsoft/Boot/bootmgfw.efi
+}
+EOF
+
+sudo chmod +x /etc/grub.d/25_windows
+sudo chmod +x /etc/grub.d/40_custom
+
+sudo update-grub
+
+########################################################################
+Add W10 GRUB
+########################################################################
+
+Mount W10(simply open the disk on Nautilus)
+sudo apt-get install os-prober
+sudo os-prober
+grub-mkconfig -o /boot/grub/grub.cfg
+sudo update-grub
+
+
+
+find <boot_efi_uuid>
+lsblk
+sudo blkid /dev/sda#
+sudo blkid | grep sda#
+
+sudo vi /etc/grub.d/40_custom
+
+menuentry "Windows 10" {
+        insmod part_gpt
+        insmod fat
+        search --no-floppy --fs-uuid --set F0D24257D24221E8
+        chainloader /EFI/Microsoft/Boot/bootmgfw.efi
+}
+
+sudo update-grub
+
+########################################################################
+Linux GRUB
+########################################################################
+◉ Comando para iniciar sesión de superusuario ROOT:
+sudo su
+ 
+◉ Instalación de EFIBOOTMANAGER:
+apt-get install efibootmgr -y
+ 
+◉ Cambiar orden del EFIBOOTMANAGER:
+efibootmgr (Ver el numero de distribución)
+efibootmgr -o [AQUÍ ESCRIBE TU DISTRIBUCIÓN]
+
+
+Referencias
+https://wiki.archlinux.org/index.php/Dual_boot_with_Windows_(Espa%C3%B1ol)
+https://itsfoss.com/no-grub-windows-linux/
+https://www.youtube.com/watch?v=F_fzrCUU-CQ&t=203s

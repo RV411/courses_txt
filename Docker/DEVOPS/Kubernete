@@ -1,0 +1,139 @@
+
+*************************************************************************************
+			Guide
+*************************************************************************************
+
+https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/
+components: https://kubernetes.io/docs/concepts/overview/components/
+
+
+
+STEPS	MINIKUBE
+
+https://k8s-docs.netlify.app/en/docs/tasks/tools/install-minikube/
+
+Ver si tenemos la virtualizacion: grep -E --color 'vmx|svm' /proc/cpuinfo
+
+Kublet
+INTERACTUA CON LOS CLUSTER DE KUBERNETE
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+kubectl version --client	verificar si se instalo correctamente
+
+
+Instalar MINIKUBE (Binario)
+(https://minikube.sigs.k8s.io/docs/start/)
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+
+minikube pause
+minikube unpause
+minikube stop
+minikube config set memory 16384
+minikube addons list
+minikube delete --all
+
+minikube start
+minikube status
+minikube dashboard --url
+
+
+
+*************************************************************************************
+				DESPLEGAR UNA IMAGEN
+*************************************************************************************
+
+**PODS**
+kubectl run kbillingapp --image=ssotobotero/udemy-devops:0.0.1 --port=80 80 pod/kbillingapp created
+kubectl get pods
+kubectl describe pod kibillingapp
+
+**SERVICES**
+kubectl expose pod kibillingapp --type=LoadBalancer --port=8080 --target-port=80
+kubectl get services
+kubectl describe services kibillingapp
+
+minikube service --url kibillingapp
+minikube service kibillingapp --url
+
+*************************************************************************************
+				DETALLES
+*************************************************************************************
+
+https://kubernetes.io/docs/concepts/configuration/secret/
+
+version de kubectl		kubectl api-versions
+cifrar palabras		echo -n "postgres" | base64
+descifrar			echo -n "cG9zdGdyZXM=" | base64 -d
+
+
+
+kubectl apply -f secret-dev.yaml
+kubectl apply -f secret-pgadmin.yaml
+kubectl apply -f configmap-postgres.initdb.yaml
+kubectl apply -f persistence-volume.yaml
+kubectl apply -f persistence-volume-claim.yaml
+kubectl apply -f deployment-postgres.yaml
+kubectl apply -f deployment-pgadmin.yaml
+
+eliminar todas las definiciones hechas:		kubectl delete -f ./
+
+
+docker ps -a
+
+** ver que no se ah borrado las bd
+docker exec -it minikube /bin/bash
+	ls -la /mnt/data/
+	
+rehacer todas las definiciones hechas:		kubectl apply -f ./
+
+*************************************************************************************
+				VER DEPLOYMENT
+*************************************************************************************
+kubectl get all
+minikube ip
+
+
+
+SECRET
+https://kubernetes.io/docs/concepts/configuration/secret/
+
+CONFIGMAP
+https://kubernetes.io/docs/concepts/configuration/configmap/
+
+VOLUMES
+https://kubernetes.io/docs/concepts/storage/volumes/
+
+VOLUMES PERSISTENS
+https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
+
+SERVICES
+https://kubernetes.io/docs/concepts/services-networking/service/
+
+
+
+
+
+
+
+
+minikube docker-env
+eval $(minikube -p minikube docker-env)
+cd billingApp_images_v4/java/
+	docker build -t billingapp-back:0.0.4 --no-cache --build-arg JAR_FILE=target/*.jar .
+cd ..
+cd Angular
+	docker build -t billingapp-front:0.0.4 --no-cache .
+cd ..
+cd billingApp
+	kubectl apply -f ./
+
+
+
+
+

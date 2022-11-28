@@ -1,0 +1,77 @@
+%%%%%%%%% *, DISTINCT, TOP #, as Name %%%%%%%%%%%%
+
+Select * from Customers;
+Select * from Customers order by desc;/asc
+Select distinct pais from Customers;
+Select top 5 * from Customers;
+Select contactname as Nombre,
+       city as Ciudad from Customers;
+
+%%%%%%%%% WHERE %%%%%%%%%%%%
+
+SELECT col from Tabla WHERE nombre='hola'
+
+%%%%%%%%% AND OR NOT %%%%%%%%%%%%
+SELECT col from Tabla WHERE NOT col.col='hola' 
+OR medal='GOLD' AND NOT gender='MEN'
+
+%%%%%%%%% IN %%%%%%%%%%%%
+SELECT col from Tabla WHERE country IN('MX','USA');
+
+SELECT col from Tabla WHERE country NOT IN('MX','USA');
+
+%%%%%%%%% BETWEEN %%%%%%%%%%%%
+SELECT * from Tabla WHERE precio between 10 and 100
+
+%%%%%%%%% LIKE %%%%%%%%%%%%
+SELECT Name from Tabla WHERE Name like 'Ad%' AND
+lastname like '%ez%' or school like '_esco%'
+
+%%%%%%%%% INNER JOIN  %%%%%%%%%%%%
+SELECT Name from Tabla O INNER JOIN TABLA2 C ON 
+O.nameid=C.nameid
+
+SELECT O.Name,C.nameid from Tabla O INNER JOIN TABLA2 C ON O.nameid=C.nameid
+
+%%%%%%%%% INNER JOIN LEFT/RIGHT %%%%%%%%%%%%
+SELECT * from Tabla P LEFT JOIN TABLA2 S ON 
+P.nameid=S.nameid 
+LEFT JOIN TABLA3 K ON P.nameid=K.nameid 
+
+%%%%%%%%% UNION/UNION ALL %%%%%%%%%%%%
+SELECT CIUDAD from Tabla UNION SELECT CIUDAD from Tabla2;(Une las dos columnas sin repetir informacion
+Debe de ser del mismo tipo y de los mismos datos)
+
+SELECT CIUDAD from Tabla UNION ALL SELECT CIUDAD from Tabla2;(Une las dos columnas -repite- informacion
+Debe de ser del mismo tipo y de los mismos datos)
+
+
+%%%%%%%%% SUM, MAX/MIN, AVG, COUNT %%%%%%%%%%%%
+Select uniprecio, multprecio,
+(uniprecio - multprecio) as RESTA,
+(uniprecio + multprecio) as SUMA,
+(uniprecio / multprecio) as divicion,
+from TABLA P
+
+Select SUM(uniprecio) from TABLA P
+Select AVG(uniprecio) from TABLA P
+Select ROUND(AVG(uniprecio),2) from TABLA P
+
+Select MAX(uniprecio) from TABLA P
+
+
+%%%%%%%%% GROUP BY, HAVING %%%%%%%%%%%%
+Select E.empleado,E.apellido,Count(O.numeroId),
+From Table1 E Left Join Table2 O  ON  E.empleadoID= O.empleadoID  
+Group By empleadoID, E.apellido (Group By 1,2)
+Having Count(O.numeroId)>100
+
+(Seleccionar de la tabla1 y 2 el empleadoID para hacer el Left Join y contar el id de cada empleado, estos son ordenador por grupo y al final solo tomar en cuenta a los mayores a 100)
+
+
+
+
+######################################################
+#####################################################################################################################################################################
+
+https://www.kaggle.com/learn/intro-to-sql?fbclid=IwAR1P9WGTf3p3OLVRcrwteJfFs1ki5NG-NGtB-IdUisRBtQlDddTBHujLPSY

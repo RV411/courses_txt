@@ -1,0 +1,106 @@
+
+
+
+
+
+
+sudo groupadd docker
+sudo usermod -aG docker ${USER}
+
+
+sudo docker run hello-world
+
+
+
+https://hub.docker.com/r/sotobotero/udemy-devops/tags
+
+sudo docker pull sotobotero/udemy-devops:0.0.1
+
+docker run -p 80:80 -p 8080:8080 --name hillingapp sotobotero/udemy-devops:0.0.1
+
+http://localhost:8080/swagger-ui/index.html
+
+
+
+
+LISTAR IMAGENES
+docker image ls
+
+docker image rm nombre_imagen
+
+LISTAR CONTENEDORES
+docker ps -a
+
+ELIMINAR CONTENEDORES
+docker rm billingapp
+
+ESTADO DE LOS CONTENEDORES
+docker logs billingapp
+
+DETENER CONTENEDORES
+docker stop billingapp
+
+INICIALIZAR CONTENEDORES
+docker start billingapp
+
+
+docker image rm billingapp:prod --force
+
+
+
+
+*************************************************************************************
+	INSTALAR MULTI IMAGENES	 DOCKER COMPOSE
+*************************************************************************************
+docker-compose pull
+docker-compose -f stack.yml pull
+docker-compose -f docker-compose.yml up -d (para que se ejecute)
+
+
+
+
+*************************************************************************************
+	EJECUTAR IMAGENES
+*************************************************************************************
+docker build -t billingapp:prod --no-cache --build-arg JAR_FILE=target/*.jar .
+docker run -p 80:80 -p 8080:8080 --name billingapp billingapp:prod
+
+
+docker build -t jenkins/blueocean_ci --no-cache .
+docker run -p 8080:8080 -p 5000:5000 --name jenkinsblue jenkins/blueocean_ci
+
+*************************************************************************************
+	SUBIR IMAGENES
+*************************************************************************************
+docker tag billingapp:prod nombre_contenedor:0.0.1
+(docker tag billingapp:prod ivan7uwu7/practice-01:0.0.1)
+
+docker login
+	poner contraseña
+
+docker push nombre_contenedor:0.0.1
+
+
+
+docker push ivan7uwu7/practice-01:0.0.1
+
+*************************************************************************************
+	LIMPIAR DOCKER COMPOSE
+*************************************************************************************
+
+docker-compose down  # Stop container on current dir if there is a docker-compose.yml
+docker rm -fv $(docker ps -aq)  # Remove all containers
+sudo lsof -i -P -n | grep <port number>  # List who's using the port
+sudo lsof -i -P -n | grep 8080
+
+	and then: kill -9 <process id> (macOS) or sudo kill <process id> (Linux).
+	fuser -i -TERM -k 5432/tcp
+	fuser -k 4200/tcp
+
+
+*************************************************************************************
+	restart DOCKER COMPOSE
+*************************************************************************************
+sudo service docker restart
+
+

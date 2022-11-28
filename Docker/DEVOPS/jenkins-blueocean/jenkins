@@ -1,0 +1,30 @@
+docker build -t jenkins/blueocean_ci --no-cache .
+docker run -p 8080:8080 -p 5000:5000 --name jenkinsblue jenkins/blueocean_ci
+
+
+abrir jenkins y configurarlo
+
+despues de crear el projecto 
+	aplicar build project
+	esperar a que se construya succesful
+
+
+descargar
+ngrok
+compilarlo y utilizar
+
+./ngrok http 8080 (puerto del jenkins)
+
+
+
+
+configurar github para ngrok
+
+usar el url que nos proporciona cuando aplicamos el http
+ponerlo /github-webhooks/ en el /github-webhooks/ y guardarlo
+
+
+
+
+
+

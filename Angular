@@ -1,0 +1,383 @@
+#colors
+https://color.adobe.com/create/color-wheel
+
+#Alert
+https://sweetalert2.github.io/#download
+
+npm install sweetalert2
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
+#bootstrap 4
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+#bootstrap 5
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+#bootstrap 5 manual
+npm install bootstrap@next
+
+styles
+"node_modules/bootstrap/dist/css/bootstrap.min.css"
+
+#Bootwatch
+
+
+
+#API Clima
+https://home.openweathermap.org/api_keys
+
+#API URL
+https://app.bitly.com/Bl2n136m0FR/bitlinks/?actions=resources
+
+#Spinner
+https://tobiasahlin.com/spinkit/
+
+#Paises
+https://restcountries.eu/
+
+
+#Mapas
+https://account.mapbox.com/
+
+npm install mapbox-gl --save
+npm i --save-dev @types/mapbox-gl
+
+<link href='https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css' rel='stylesheet' />
+
+
+#Graficas
+https://valor-software.com/ng2-charts/
+
+Si sale error agregar esta linea en angular.json en options
+"options": {
+            "allowedCommonJsDependencies":["chart.js"],
+            
+            
+            
+
+
+
+
+############################################
+	Uninstall
+############################################
+#remove the components
+sudo apt-get remove nodejs npm node
+sudo apt-get purge nodejs
+#delete files
+sudo rm -rf /usr/local/bin/npm 
+sudo rm -rf /usr/local/share/man/man1/node* 
+sudo rm -rf /usr/local/lib/dtrace/node.d
+rm -rf ~/.npm
+rm -rf ~/.node-gyp
+sudo rm -rf /opt/local/bin/node
+sudo rm -rf /opt/local/include/node
+sudo rm -rf /opt/local/lib/node_modules
+sudo rm -rf /usr/local/lib/node*
+sudo rm -rf /usr/local/include/node*
+sudo rm -rf /usr/local/bin/node*
+sudo apt-get update
+#Verify the unistall (Not appear nothing)
+which node
+which nodejs
+which npm
+
+############################################
+	Install
+############################################
+#Add repository
+sudo curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+sudo apt-get install -y nodejs
+node --version
+
+sudo curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+source ~/.bashrc
+nvm list
+npm --version
+
+npm install -g @angular/cli
+ng version
+
+npm install @angular/cli
+ng update @angular/cli
+ng update @angular/core
+ng update rxjs
+
+#npm uninstall -g @angular/cli
+#npm cache clean --force
+#npm install -g @angular/cli
+############################################
+	Error
+############################################
+#Error: ENOSPC
+npm cache clear --force
+echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
+#Error:
+
+############################################
+	create project
+############################################
+ng new myproject
+y
+n
+css
+
+cd myproject
+ng serve --host your-server-ip --port 8088
+
+############################################
+	paginas
+############################################
+#Animate Css
+https://animate.style/#attention_seekers
+
+
+############################################
+	use Angular
+############################################
+
+#crear un modulo
+ng g c shared/header --skipTests=true -is
+#o usar ng g c shared/footer --spec=false dependiendo de la version
+
+
+#ver como se encuentra la aplicacion
+ng serve -o
+
+
+#Crear Json
+http://json.parser.online.fr/
+
+############################################
+	services Angular
+############################################
+
+#Crear un Servicio
+ng g s services/infoPagina --skipTests=true
+
+
+
+const params=new HttpParams()
+      .set('api_key',this.apiKey)
+      .set('limit','10')
+      .set('q',busqueda);
+      
+this.http.get<SearchGifsResponse>(`${this.nombreURL}/search`, {params})
+    .subscribe((resp)=>{
+      this.resultadosBusqueda=resp.data;
+      localStorage.setItem('resultadosBusqueda',JSON.stringify(this.resultadosBusqueda));
+    });
+    
+
+
+############################################
+	produccion Angular
+############################################
+ng build --prod
+#probar online
+npm http-serve
+
+poner al projecto con nombre de docs
+antes de subirlo al Git
+
+
+############################################
+	Pipes Angular
+############################################
+
+
+    Uppercase
+
+    Lowercase
+
+    TitleCase
+
+    Date
+
+    Decimal
+
+    Currency
+
+    Percent
+
+    i18nSelect
+
+    i18Plural
+
+    KeyValue
+
+    Json
+
+    Async
+        
+    
+############################################
+	Pipe
+############################################
+
+#Pipe
+ng g pipe ventas/pipes/ordenar --skipTests=true
+
+
+############################################
+	Directivas
+############################################
+
+#Directivas
+ng g d shared/directives/errorMsg --skipTests=true
+
+
+
+
+
+
+
+############################################
+	Routes Angular
+############################################
+
+import { RouterModule, Routes } from "@angular/router";
+
+const routes:Routes=[
+    {
+        path:'principal',
+        component:PorPaisComponent,
+        pathMatch:'full'
+    },
+    {
+        path:'**',
+        redirectTo:'principal',
+    }
+    ]
+
+@NgModule({
+    imports:[
+        RouterModule.forRoot(routes)
+    ],
+    exports:[
+        RouterModule
+    ]
+})
+
+
+#Router
+ng g m appRouting --flat
+
+
+
+#crear los urls
+app-routing.module.ts
+escribir @NgModule:(debe de tener imports y exports)
+y tambien: const app_routes: Routes
+
+#Enlaces en las paginas de otras paginas
+routerLink=""
+routerLink="about"	 (ruta fija)
+routerLink="/about"	 (ruta en la raiz)
+#cuando se le envia el id de algo
+[routerLink]="['/item',producto.cod]"
+
+
+############################################
+	Routes CHILD Angular
+############################################
+
+ng g m reactive --routing
+
+# En el module 
+path:'reactive',
+    loadChildren:()=>import('./reactive/reactive.module').then(m=>m.ReactiveModule)
+
+# En el Child
+
+{
+path:'',
+    children:[
+      {path:'basicos',component:BasicosComponent},
+      ]
+} 
+
+
+
+############################################
+	FlexLayout & Material
+############################################
+
+npm i -s @angular/flex-layout @angular/cdk
+
+ng add @angular/material
+
+
+
+############################################
+	Create a data base for testing
+############################################
+
+https://www.npmjs.com/package/json-server
+
+sudo npm install -g json-server
+
+#convert json to TypeScript
+https://app.quicktype.io/
+
+
+
+
+
+############################################
+	Reactives
+############################################
+
+https://angular.io/guide/reactive-forms
+
+
+
+############################################
+	Lifecycle hooks
+############################################
+
+https://angular.io/guide/lifecycle-hooks#lifecycle-hooks
+
+
+
+
+############################################
+	Node
+############################################
+
+
+npm init -y
+
+instalar 
+https://www.npmjs.com/package/nodemon
+
+npm install -g nodemon
+npm install --save-dev nodemon
+
+
+importar en el script las 2 lineas
+
+"dev": "nodemon index.js",
+"start": "node index.js"
+
+y usar npm run dev(desarrollo) o 
+	npm start(produccion)
+
+#para usarlo de una manera efiente instalar
+npm i bcryptjs cors dotenv express express-validator jsonwebtoken mongoose
+
+bcryptjs 		encriptar datos en contraseñas
+
+cors 	acepta peticiones de dominios exteriores
+
+dotenv	Se crean variables de entorno
+
+express-validator maneja las validaciones en los forms
+
+mongoose		ayuda con la comunicacion de la base de datos
+
+
+
+
+
+
